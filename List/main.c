@@ -116,7 +116,7 @@ void RemoveAll(List* list, int element)
     }
 }
 
-// Does the same thing as Remove() method
+// This does the same thing as Remove() method
 // The differences are we just jump directly to index,
 // and Sliding only occurs 1 time
 // In worst case (index = 0), We must visit every element
@@ -160,6 +160,7 @@ void RemoveFirst(List* list)
 }
 
 // We simply remove the last element
+// This is the best case of the RemoveAt() method
 // O(1)
 void RemoveLast(List* list)
 {
@@ -192,7 +193,7 @@ int GetAt(List* list, int index)
 }
 
 // Same as GetAt(index = 0)
-// Reaching to the first element
+// Reaches to the first element
 // O(1)
 int GetFirst(List* list)
 {
@@ -210,7 +211,7 @@ int GetFirst(List* list)
 }
 
 // Same as GetAt(index = lastIndex)
-// Reaching to the last element
+// Reaches to the last element
 // O(1)
 int GetLast(List* list)
 {
