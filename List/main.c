@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 #define WHITE "\033[0m"
 #define RED "\033[1;31m"
 #define GREEN "\033[1;32m"
@@ -74,6 +75,30 @@ void Remove(List* list, int element)
     }
 
     Highlight("Could not found the element, It cannot be removed!\n", RED);
+}
+
+void RemoveAll(List* list, int element)
+{
+    int found = 0;
+    for (int i = 0; i < list->count; ++i)
+    {
+        list->elements[i-found] = list->elements[i];
+        if (list->elements[i] == element)
+        {
+            list->elements[i] = DEFAULT_VALUE;
+            found++;
+        }
+    }
+    list->count -= found;
+
+    if (found == 0)
+    {
+        Highlight("Could not found any matching element, Cannot remove any element(s)!\n", RED);
+    }
+    else
+    {
+        Highlight("All Element(s) successfully Removed!\n", GREEN);
+    }
 }
 
 void RemoveAt(List* list, int index)
@@ -209,14 +234,14 @@ void Print(List* list)
     }
 }
 
+void Clear(List* list)
+{
+    list->count = 0;
+}
+
 List* Init(List* list)
 {
     list = (List*)malloc(sizeof(list));
-
-    for (int i = 0; i < MAX_ELEMENT_COUNT; ++i)
-    {
-        list->elements[i] = DEFAULT_VALUE;
-    }
 
     list->count = 0;
 
@@ -236,16 +261,18 @@ int main()
         Highlight("(1) Add -> Adds an int element to the list\n", YELLOW);
         Highlight("(2) Insert -> Inserts an int element at the given index\n", YELLOW);
         Highlight("(3) Remove -> Removes the first matched element from the list\n", YELLOW);
-        Highlight("(4) Remove At -> Removes the element at the given index\n", YELLOW);
-        Highlight("(5) Remove First -> Removes the first element from the list\n", YELLOW);
-        Highlight("(6) Remove Last -> Removes the last element from the list\n", YELLOW);
-        Highlight("(7) Get At -> Returns the value at given index\n", YELLOW);
-        Highlight("(8) Get First -> Returns the First value from the list\n", YELLOW);
-        Highlight("(9) Get Last -> Returns the Last value from the list\n", YELLOW);
-        Highlight("(10) Index Of -> Returns the first matched element's index\n", YELLOW);
-        Highlight("(11) Contains -> Returns if the list Contains given element or not\n", YELLOW);
-        Highlight("(12) Count -> Returns the Element Count of the List\n", YELLOW);
-        Highlight("(13) Print -> Prints the Element(s) at the List one by one\n", YELLOW);
+        Highlight("(4) Remove All -> Removes all matched element(s) from the list\n", YELLOW);
+        Highlight("(5) Remove At -> Removes the element at the given index\n", YELLOW);
+        Highlight("(6) Remove First -> Removes the first element from the list\n", YELLOW);
+        Highlight("(7) Remove Last -> Removes the last element from the list\n", YELLOW);
+        Highlight("(8) Get At -> Returns the value at given index\n", YELLOW);
+        Highlight("(9) Get First -> Returns the First value from the list\n", YELLOW);
+        Highlight("(10) Get Last -> Returns the Last value from the list\n", YELLOW);
+        Highlight("(11) Index Of -> Returns the first matched element's index\n", YELLOW);
+        Highlight("(12) Contains -> Returns if the list Contains given element or not\n", YELLOW);
+        Highlight("(13) Count -> Returns the Element Count of the List\n", YELLOW);
+        Highlight("(14) Print -> Prints the Element(s) at the List one by one\n", YELLOW);
+        Highlight("(15) Clear -> Removes all Element(s) and makes the list empty\n", YELLOW);
 
         Highlight("Pick an operation (0-13) >", BLUE);
         scanf("%d", &choice);
@@ -281,17 +308,25 @@ int main()
 
         if (choice == 4)
         {
+            int value = DEFAULT_VALUE;
+            Highlight("Type an integer value to Remove >", WHITE);
+            scanf("%d", &value);
+            RemoveAll(pList, value);
+        }
+
+        if (choice == 5)
+        {
             int index = DEFAULT_VALUE;
             Highlight("Type an index, where you want to Remove at >", WHITE);
             scanf("%d", &index);
             RemoveAt(pList, index);
         }
 
-        if (choice == 5) RemoveFirst(pList);
+        if (choice == 6) RemoveFirst(pList);
 
-        if (choice == 6) RemoveLast(pList);
+        if (choice == 7) RemoveLast(pList);
 
-        if (choice == 7)
+        if (choice == 8)
         {
             int index = DEFAULT_VALUE;
             Highlight("Type an index, where you want to Get value >", WHITE);
@@ -299,11 +334,11 @@ int main()
             GetAt(pList, index);
         }
 
-        if (choice == 8) GetFirst(pList);
+        if (choice == 9) GetFirst(pList);
 
-        if (choice == 9) GetLast(pList);
+        if (choice == 10) GetLast(pList);
 
-        if (choice == 10)
+        if (choice == 11)
         {
             int value = DEFAULT_VALUE;
             Highlight("Type an integer value to Get its index >", WHITE);
@@ -317,7 +352,7 @@ int main()
             }
         }
 
-        if (choice == 11)
+        if (choice == 12)
         {
             int value = DEFAULT_VALUE;
             Highlight("Type an integer value to Check if it is in the list or not >", WHITE);
@@ -336,14 +371,14 @@ int main()
             printf(WHITE);
         }
 
-        if (choice == 12)
+        if (choice == 13)
         {
             printf(PURPLE);
             printf("The List has got %d element(s)\n", pList->count);
             printf(WHITE);
         }
 
-        if (choice == 13)
+        if (choice == 14)
         {
             if (isEmpty(pList))
             {
@@ -353,6 +388,12 @@ int main()
             {
                 Print(pList);
             }
+        }
+
+        if (choice == 15)
+        {
+            Clear(pList);
+            Highlight("The list has been Cleared!\n", GREEN);
         }
     }
     return 0;
