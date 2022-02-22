@@ -17,6 +17,7 @@
 typedef char* string;
 typedef enum { False = 0, True = 1 } bool;
 
+// Just a colorful text
 void Highlight(string msg, string color)
 {
     printf("%s", color);
@@ -31,6 +32,8 @@ typedef struct
 
 } List;
 
+// Adds the Element at the last spot
+// O(1)
 void Add(List* list, int element)
 {
     if (list->count >= MAX_ELEMENT_COUNT)
@@ -44,6 +47,8 @@ void Add(List* list, int element)
     Highlight("The Element successfully added!\n", GREEN);
 }
 
+// Inserts the Element at the given Index
+// O(1)
 void Insert(List* list, int index, int element)
 {
     if (index >= list->count || index < 0)
@@ -56,6 +61,10 @@ void Insert(List* list, int index, int element)
     Highlight("The Element successfully inserted!\n", GREEN);
 }
 
+// Removes the Given Element at the given Index
+// and Slides the following elements left by 1
+// We must visit every element
+// O(n)
 void Remove(List* list, int element)
 {
     for (int i = 0; i < list->count; ++i)
@@ -77,6 +86,12 @@ void Remove(List* list, int element)
     Highlight("Could not found the element, It cannot be removed!\n", RED);
 }
 
+// If we found a match, we delete it,
+// and we Slide the following elements left by {found} amount until we find another match
+// do this cycle over and over until we visited all elements,
+// and also the {found} amount increases by 1 for every match
+// So, we must visit every element
+// O(n)
 void RemoveAll(List* list, int element)
 {
     int found = 0;
@@ -101,6 +116,11 @@ void RemoveAll(List* list, int element)
     }
 }
 
+// Does the same thing as Remove() method
+// The differences are we just jump directly to index,
+// and Sliding only occurs 1 time
+// In worst case (index = 0), We must visit every element
+// O(n-index)
 void RemoveAt(List* list, int index)
 {
     if (index >= list->count || index < 0)
@@ -118,6 +138,10 @@ void RemoveAt(List* list, int index)
     Highlight("The Element successfully Removed at given index!\n", GREEN);
 }
 
+// Same as RemoveAt(index = 0)
+// This is the worst case of the RemoveAt() method
+// We must visit every element
+// O(n)
 void RemoveFirst(List* list)
 {
     if (list->count == 0)
@@ -135,6 +159,8 @@ void RemoveFirst(List* list)
     Highlight("The First Element successfully Removed from the List!\n", GREEN);
 }
 
+// We simply remove the last element
+// O(1)
 void RemoveLast(List* list)
 {
     if (list->count == 0)
@@ -148,6 +174,8 @@ void RemoveLast(List* list)
     Highlight("The Last Element successfully Removed from the List!\n", GREEN);
 }
 
+// This is equivalent to indexer []
+// O(1)
 int GetAt(List* list, int index)
 {
     if (index >= list->count || index < 0)
@@ -163,6 +191,9 @@ int GetAt(List* list, int index)
     return list->elements[index];
 }
 
+// Same as GetAt(index = 0)
+// Reaching to the first element
+// O(1)
 int GetFirst(List* list)
 {
     if (list->count == 0)
@@ -178,6 +209,9 @@ int GetFirst(List* list)
     return list->elements[0];
 }
 
+// Same as GetAt(index = lastIndex)
+// Reaching to the last element
+// O(1)
 int GetLast(List* list)
 {
     if (list->count == 0)
@@ -193,6 +227,8 @@ int GetLast(List* list)
     return list->elements[list->count-1];
 }
 
+// If our target element is the last element, We must visit all elements
+// In worst case => O(n)
 int IndexOf(List* list, int element)
 {
     for (int i = 0; i < list->count; ++i)
@@ -207,6 +243,8 @@ int IndexOf(List* list, int element)
     return -1;
 }
 
+// We must visit all elements
+// O(n)
 bool Contains(List* list, int element)
 {
     for (int i = 0; i < list->count; ++i)
@@ -219,11 +257,15 @@ bool Contains(List* list, int element)
     return False;
 }
 
+// Simple isEqual operation
+// O(1)
 bool isEmpty(List* list)
 {
     return (bool)(list->count == 0);
 }
 
+// We must visit all elements
+// O(n)
 void Print(List* list)
 {
     for (int i = 0; i < list->count; ++i)
@@ -234,11 +276,13 @@ void Print(List* list)
     }
 }
 
+// O(1)
 void Clear(List* list)
 {
     list->count = 0;
 }
 
+// Constructor
 List* Init(List* list)
 {
     list = (List*)malloc(sizeof(list));
