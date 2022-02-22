@@ -61,7 +61,7 @@ void Insert(List* list, int index, int element)
     Highlight("The Element successfully inserted!\n", GREEN);
 }
 
-// Removes the Given Element at the given Index
+// Removes the Given Element at first match
 // and Slides the following elements left by 1
 // We must visit every element
 // O(n)
@@ -160,6 +160,7 @@ void RemoveFirst(List* list)
 }
 
 // We simply remove the last element
+// No Sliding needed
 // This is the best case of the RemoveAt() method
 // O(1)
 void RemoveLast(List* list)
@@ -193,7 +194,7 @@ int GetAt(List* list, int index)
 }
 
 // Same as GetAt(index = 0)
-// Reaches to the first element
+// Reaches the first element
 // O(1)
 int GetFirst(List* list)
 {
@@ -211,7 +212,7 @@ int GetFirst(List* list)
 }
 
 // Same as GetAt(index = lastIndex)
-// Reaches to the last element
+// Reaches the last element
 // O(1)
 int GetLast(List* list)
 {
