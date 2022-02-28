@@ -282,6 +282,7 @@ void RemoveAt(List* list, int index)
             ListNode* next = current->next;
             FreeNode(current);
             last->next = next;
+            list->count--;
             return;
         }
         last = current;
