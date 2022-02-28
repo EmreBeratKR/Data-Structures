@@ -320,7 +320,7 @@ int main()
         Highlight("(14) Print -> Prints the Element(s) at the List one by one\n", YELLOW);
         Highlight("(15) Clear -> Removes all Element(s) and makes the list empty\n", YELLOW);
 
-        Highlight("Pick an operation (0-13) >", BLUE);
+        Highlight("Pick an operation (0-15) >", BLUE);
         scanf("%d", &choice);
 
         if (choice == 0) break;
